@@ -4,13 +4,13 @@ Jobify, a website for connecting job seeker with the recruiters to apply for job
 
 to install all packages:
 
-cli```
+```cli
 npm install
 ```
 
 to run the app in localhost:
 
-cli```
+```cli
 node index.js
 ```
 
