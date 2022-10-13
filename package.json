@@ -1,0 +1,22 @@
+{
+  "name": "jobify-backend",
+  "version": "1.0.0",
+  "description": "Jobify, a website for connecting job seeker with the recruiters to apply for jobs (back-end)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbdulazizYas/Jobify-backend.git"
+  },
+  "author": "AbdulazizYas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AbdulazizYas/Jobify-backend/issues"
+  },
+  "homepage": "https://github.com/AbdulazizYas/Jobify-backend#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
