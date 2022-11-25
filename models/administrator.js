@@ -1,21 +1,26 @@
+const sequelize = new Sequelize('sqlite::memory:');
 const administrator = sequelize.define(
   "administrator",
   {
     admin_id: {
       type: Sequelize.UUID,
-      primaryKey: true
+      primaryKey: true,
+      allowNull: false,
     }
   },
   {
     firstName: {
       type: Sequelize.STRING,
       primaryKey: false
+      ,
+      allowNull: false,
     }
   },
   {
     lastName: {
       type: Sequelize.STRING,
-      primaryKey: false
+      primaryKey: false,
+      allowNull: false,
     }
   },
   //{ timestamps: false }

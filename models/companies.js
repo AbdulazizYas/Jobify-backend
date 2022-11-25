@@ -1,15 +1,18 @@
+const sequelize = new Sequelize('sqlite::memory:');
 const companies = sequelize.define(
   "companies",
   {
     companyName: {
       type: Sequelize.STRING,
-      primaryKey: true
+      primaryKey: true,
+      allowNull: false
     }
   },
   {
     location: {
       type: Sequelize.STRING,
-      primaryKey: false
+      primaryKey: false,
+      allowNull: false
     }
   },
   //{ timestamps: false }

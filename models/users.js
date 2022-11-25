@@ -1,27 +1,31 @@
+const sequelize = new Sequelize('sqlite::memory:');
 const users = sequelize.define(
     "users",
-    { 
+    {
         userName: {
             type: Sequelize.STRING,
-            primaryKey: true
-        } 
+            primaryKey: true,
+            allowNull: false
+        }
     },
-    { 
+    {
         email: {
             type: Sequelize.STRING,
-            primaryKey: false
-        } 
+            primaryKey: false,
+            allowNull: false
+        }
     },
-    { 
+    {
         password: {
             type: Sequelize.STRING,
-            primaryKey: false
-        } 
+            primaryKey: false,
+            allowNull: false
+        }
     },
     //{ timestamps: false }
-  );
+);
 
-  users.associate = (models) => {
+users.associate = (models) => {
     users.hasMany(models.administrator, {
         foreignKey: "admin_id",
         as: "admin_id"
@@ -34,6 +38,6 @@ const users = sequelize.define(
         foreignKey: "companyName",
         as: "companyName"
     });
-  };
+};
 
 return users; 
