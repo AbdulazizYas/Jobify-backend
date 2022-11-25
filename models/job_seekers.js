@@ -26,3 +26,12 @@ const jop_seekers = sequelize.define(
     },
     //{ timestamps: false }
   );
+
+  job_seekers.associate = (models) => {
+    job_seekers.belongTo(models.users, {
+        foreignKey: "username",
+        as: "username"
+    });
+  };
+
+return job_seekers;

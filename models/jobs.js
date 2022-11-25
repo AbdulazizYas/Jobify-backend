@@ -39,4 +39,5 @@ const jobs = sequelize.define(
         as: "companyName"
     });
   };
+  
 return jobs;
