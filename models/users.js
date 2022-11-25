@@ -18,22 +18,16 @@ const user = sequelize.define(
             primaryKey: false
         } 
     },
-    { 
-        username: {
-            type: Sequelize.STRING,
-            primaryKey: false
-        }  
-    },
     //{ timestamps: false }
   );
 
 const jop_seekers = sequelize.define(
   "jop_seekers",
   { 
-        jId: {
-            type: Sequelize.INTEGER(10),
-            primaryKey: true
-        } 
+    jId: {
+        type: Sequelize.UUID,
+        primaryKey: true
+    } 
   },
   { 
     firstName: {
@@ -58,16 +52,41 @@ const jop_seekers = sequelize.define(
 
 const companies = sequelize.define(
   "companies",
-  { companyName: Sequelize.STRING },
-  { location: Sequelize.STRING },
+  { 
+    companyName: {
+        type: Sequelize.STRING,
+        primaryKey: true
+    }  
+  },
+  { 
+    location: {
+        type: Sequelize.STRING,
+        primaryKey: false
+    }  
+  },
   //{ timestamps: false }
 );
 
 const administrator = sequelize.define(
   "administrator",
-  { firstName: Sequelize.STRING },
-  { lastName: Sequelize.STRING },
-  { id: Sequelize.INTEGER(10) },
+  { 
+    Id: {
+        type: Sequelize.UUID,
+        primaryKey: true
+    } 
+  },
+  { 
+    firstName: {
+        type: Sequelize.STRING,
+        primaryKey: false
+    } 
+  },
+  { 
+    lastName: {
+        type: Sequelize.STRING,
+        primaryKey: false
+    }  
+  },
   //{ timestamps: false }
 );
 
