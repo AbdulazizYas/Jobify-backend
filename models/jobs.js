@@ -32,3 +32,11 @@ const jobs = sequelize.define(
     },
     //{ timestamps: false }
   );
+
+  jobs.associate = (models) => {
+    jobs.belongTo(models.companies, {
+        foreignKey: "companyName",
+        as: "companyName"
+    });
+  };
+return jobs;
