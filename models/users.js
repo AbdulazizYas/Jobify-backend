@@ -1,5 +1,5 @@
-const user = sequelize.define(
-    "user",
+const users = sequelize.define(
+    "users",
     { 
         userName: {
             type: Sequelize.STRING,
