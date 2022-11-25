@@ -5,14 +5,20 @@ const companies = sequelize.define(
     companyName: {
       type: Sequelize.STRING,
       primaryKey: true,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'company must have a  name' },
+      },
     }
   },
   {
     location: {
       type: Sequelize.STRING,
       primaryKey: false,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'company must have a location' },
+      },
     }
   },
   //{ timestamps: false }

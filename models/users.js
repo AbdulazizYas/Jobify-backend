@@ -5,21 +5,30 @@ const users = sequelize.define(
         userName: {
             type: Sequelize.STRING,
             primaryKey: true,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull: { msg: 'a user must have a username' },
+            }
         }
     },
     {
         email: {
             type: Sequelize.STRING,
             primaryKey: false,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull: { msg: 'a user must have an email' },
+            }
         }
     },
     {
         password: {
             type: Sequelize.STRING,
             primaryKey: false,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull: { msg: 'a user must have a password' },
+            }
         }
     },
     //{ timestamps: false }

@@ -6,14 +6,20 @@ const administrator = sequelize.define(
       type: Sequelize.UUID,
       primaryKey: true,
       allowNull: false,
+      validate: {
+        notNull: { msg: 'admin must have an id' },
+       
+      },
     }
   },
   {
     firstName: {
       type: Sequelize.STRING,
-      primaryKey: false
-      ,
+      primaryKey: false,
       allowNull: false,
+      validate: {
+        notNull: { msg: 'user must have a first name' },
+      },
     }
   },
   {
@@ -21,6 +27,9 @@ const administrator = sequelize.define(
       type: Sequelize.STRING,
       primaryKey: false,
       allowNull: false,
+      validate: {
+        notNull: { msg: 'user must have a last name' },
+      },
     }
   },
   //{ timestamps: false }

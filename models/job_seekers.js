@@ -5,28 +5,40 @@ const jop_seekers = sequelize.define(
     seeker_id: {
       type: Sequelize.UUID,
       primaryKey: true,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'seeker must have an id' },
+      },
     }
   },
   {
     firstName: {
       type: Sequelize.STRING,
       primaryKey: false,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'seeker must have a first name' },
+      }
     }
   },
   {
     lastName: {
       type: Sequelize.STRING,
       primaryKey: false,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'seeker must have a last name' },
+      }
     }
   },
   {
     birthDate: {
       type: Sequelize.DATE,
       primaryKey: false,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'seeker must have a birth date' },
+      }
     }
   },
   //{ timestamps: false }
