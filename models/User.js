@@ -1,6 +1,16 @@
 const sequelize = new Sequelize('sqlite::memory:');
-const users = sequelize.define(
-    "users",
+const User = sequelize.define(
+    "User",
+    {
+        type: {
+            type: Sequelize.STRING,
+            primaryKey: false,
+            allowNull: false,
+            validate: {
+                notNull: { msg: 'a user must have a type' },
+            }
+        }
+    },
     {
         userName: {
             type: Sequelize.STRING,
@@ -34,19 +44,19 @@ const users = sequelize.define(
     //{ timestamps: false }
 );
 
-users.associate = (models) => {
-    users.hasMany(models.administrator, {
+User.associate = (models) => {
+    User.hasOne(models.Administrator, {
         foreignKey: "admin_id",
         as: "admin_id"
     });
-    users.hasMany(models.job_seekers, {
+    User.hasOne(models.JobSeekers, {
         foreignKey: "seeker_id",
         as: "seeker_id"
     });
-    users.hasMany(models.companies, {
+    User.hasOne(models.Company, {
         foreignKey: "companyName",
         as: "companyName"
     });
 };
 
-return users; 
+return User; 

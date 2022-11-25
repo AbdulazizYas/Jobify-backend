@@ -1,6 +1,6 @@
 const sequelize = new Sequelize('sqlite::memory:');
-const jop_seekers = sequelize.define(
-  "jop_seekers",
+const JopSeeker = sequelize.define(
+  "JopSeeker",
   {
     seeker_id: {
       type: Sequelize.UUID,
@@ -44,11 +44,11 @@ const jop_seekers = sequelize.define(
   //{ timestamps: false }
 );
 
-job_seekers.associate = (models) => {
-  job_seekers.belongTo(models.users, {
+JopSeeker.associate = (models) => {
+  JopSeeker.belongTo(models.User, {
     foreignKey: "username",
     as: "username"
   });
 };
 
-return job_seekers;
+return JopSeeker;

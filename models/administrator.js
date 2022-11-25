@@ -1,6 +1,6 @@
 const sequelize = new Sequelize('sqlite::memory:');
-const administrator = sequelize.define(
-  "administrator",
+const Administrator = sequelize.define(
+  "Administrator",
   {
     admin_id: {
       type: Sequelize.UUID,
@@ -35,12 +35,12 @@ const administrator = sequelize.define(
   //{ timestamps: false }
 );
 
-administrator.associate = (models) => {
-  administrator.belongTo(models.users, {
+Administrator.associate = (models) => {
+  Administrator.belongTo(models.User, {
     foreignKey: "userName",
     as: "userName"
   });
 
 };
 
-return administrator;
+return Administrator;

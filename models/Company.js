@@ -1,6 +1,6 @@
 const sequelize = new Sequelize('sqlite::memory:');
-const companies = sequelize.define(
-  "companies",
+const Company = sequelize.define(
+  "Company",
   {
     companyName: {
       type: Sequelize.STRING,
@@ -23,15 +23,15 @@ const companies = sequelize.define(
   },
   //{ timestamps: false }
 );
-companies.associate = (models) => {
-  companies.belongTo(models.users, {
+Company.associate = (models) => {
+  Company.belongTo(models.User, {
     foreignKey: "userName",
     as: "userName"
   });
-  companies.hasMany(models.jobs, {
+  Company.hasMany(models.Job, {
     foreignKey: "job_id",
     as: "job_id"
   });
 };
 
-return companies;
+return Company;

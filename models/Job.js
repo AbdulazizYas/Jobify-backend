@@ -1,6 +1,6 @@
 const sequelize = new Sequelize('sqlite::memory:');
-const jobs = sequelize.define(
-    "jobs",
+const Job = sequelize.define(
+    "Job",
     { 
         job_id: {
             type: Sequelize.UUID,
@@ -54,11 +54,11 @@ const jobs = sequelize.define(
     //{ timestamps: false }
   );
 
-  jobs.associate = (models) => {
-    jobs.belongTo(models.companies, {
+  Job.associate = (models) => {
+    Job.belongTo(models.companies, {
         foreignKey: "companyName",
         as: "companyName"
     });
   };
   
-return jobs;
+return Job;
