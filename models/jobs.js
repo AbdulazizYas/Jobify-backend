@@ -1,7 +1,19 @@
 const jobs = sequelize.define(
     "jobs",
     { 
+        job_id: {
+            type: Sequelize.UUID,
+            primaryKey: true
+        } 
+    },
+    { 
         jobName: {
+            type: Sequelize.STRING,
+            primaryKey: false
+        } 
+    },
+    { 
+        location: {
             type: Sequelize.STRING,
             primaryKey: false
         } 
@@ -13,8 +25,8 @@ const jobs = sequelize.define(
         } 
     },
     { 
-        password: {
-            type: Sequelize.STRING,
+        salary: {
+            type: Sequelize.INTEGER,
             primaryKey: false
         } 
     },

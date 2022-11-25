@@ -24,7 +24,7 @@ const users = sequelize.define(
 const jop_seekers = sequelize.define(
   "jop_seekers",
   { 
-    jId: {
+    seeker_id: {
         type: Sequelize.UUID,
         primaryKey: true
     } 
@@ -70,7 +70,7 @@ const companies = sequelize.define(
 const administrator = sequelize.define(
   "administrator",
   { 
-    Id: {
+    admin_id: {
         type: Sequelize.UUID,
         primaryKey: true
     } 
