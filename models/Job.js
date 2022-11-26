@@ -32,6 +32,26 @@ const Job = sequelize.define(
         } 
     },
     { 
+        datePosted: {
+            type: Sequelize.DATE,
+            primaryKey: false,
+            allowNull: false,
+            validate: {
+                notNull: { msg: 'a job must have a date posted' },
+            }
+        } 
+    },
+    { 
+        locationType: {
+            type: Sequelize.STRING,
+            primaryKey: false,
+            allowNull: false,
+            validate: {
+                notNull: { msg: 'a job must have a location type' },
+            }
+        } 
+    },
+    { 
         entryLevel: {
             type: Sequelize.STRING,
             primaryKey: false,
@@ -42,27 +62,33 @@ const Job = sequelize.define(
         } 
     },
     { 
-        salary: {
-            type: Sequelize.INTEGER,
+        jobType: {
+            type: Sequelize.STRING,
             primaryKey: false,
             allowNull: false,
             validate: {
-                notNull: { msg: 'a job must have a salary' },
+                notNull: { msg: 'a job must have a type' },
             }
         } 
     },
+    // { 
+    //     salary: {
+    //         type: Sequelize.INTEGER,
+    //         primaryKey: false,
+    //         allowNull: false,
+    //         validate: {
+    //             notNull: { msg: 'a job must have a salary' },
+    //         }
+    //     } 
+    // },
     //{ timestamps: false }
   );
 
   Job.associate = (models) => {
-    Job.belongTo(models.Company, {
+    Job.belongTo(models.companies, {
         foreignKey: "companyName",
         as: "companyName"
     });
-      Job.hasMany(models.JobSeeker, {
-          foreignKey: "seeker_id",
-          as: "seeker_id"
-      });
   };
   
 return Job;
