@@ -49,7 +49,7 @@ User.associate = (models) => {
         foreignKey: "admin_id",
         as: "admin_id"
     });
-    User.hasOne(models.JobSeekers, {
+    User.hasOne(models.JobSeeker, {
         foreignKey: "seeker_id",
         as: "seeker_id"
     });
