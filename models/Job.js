@@ -55,10 +55,14 @@ const Job = sequelize.define(
   );
 
   Job.associate = (models) => {
-    Job.belongTo(models.companies, {
+    Job.belongTo(models.Company, {
         foreignKey: "companyName",
         as: "companyName"
     });
+    Job.hasMany(models.JobSeeker, {
+        foreignKey: "seeker_id",
+        as: "seeker_id"
+    })
   };
   
 return Job;
