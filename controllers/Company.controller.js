@@ -8,7 +8,7 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
     var id = req.params.id;
-    await Company.update(req.bode, {where: {id}}).catch((error) => res.send(error));
+    await Company.update(req.body, {where: {id}}).catch((error) => res.send(error));
     return res.redirect("Back");
 };
 
@@ -20,4 +20,4 @@ exports.delete = async (req, res) => {
 
 exports.getAllCompanies = async (req, res) => {
     var company = await Company.findAll({}).catch((error) => res.send(error));
-}
+};
