@@ -1,10 +1,6 @@
 let db = require("../models");
 var JobSeeker = db.JobSeeker;
 
-exports.create = async (req, res) => {
-    await JobSeeker.create(req.body).catch((error) => res.send(error));
-    return res.redirect("Back");
-};
 
 exports.update = async (req, res) => {
     var id = req.params.id;

@@ -7,7 +7,7 @@ exports.create = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-    var id = req.params.id;
+    var id =  
     await administrator.update(req.body, { where: { id } }).catch((error) => res.send(error));
     return res.redirect("Back");
 };

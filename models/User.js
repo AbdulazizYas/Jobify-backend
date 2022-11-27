@@ -1,16 +1,7 @@
 const sequelize = new Sequelize('sqlite::memory:');
 const User = sequelize.define(
     "User",
-    {
-        type: {
-            type: Sequelize.STRING,
-            primaryKey: false,
-            allowNull: false,
-            validate: {
-                notNull: { msg: 'a user must have a type' },
-            }
-        }
-    },
+
     {
         userName: {
             type: Sequelize.STRING,
@@ -41,6 +32,16 @@ const User = sequelize.define(
             }
         }
     },
+    {
+        type: {
+            type: Sequelize.STRING,
+            primaryKey: false,
+            allowNull: false,
+            validate: {
+                notNull: { msg: 'a user must have a type' },
+            }
+        }
+    }
     //{ timestamps: false }
 );
 
