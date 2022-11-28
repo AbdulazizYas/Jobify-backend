@@ -1,7 +1,6 @@
 let db = require("../models");
 var Company = db.Company;
 
-
 const statusS = {
     Status: 'successful'
 }
