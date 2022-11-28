@@ -1,16 +1,19 @@
+const { json } = require("sequelize");
 let db = require("../models");
-var User = db.User;
-var CompanyDB = db.Company;
+// var User = db.User;
+// var CompanyDB = db.Company;
 
 const statusS = {
     Status: 'successful'
+}
 
-}
-const statusF = {
-    Status: 'Failed'
-}
+// const statusF = {
+//     Status: 'Failed'
+// }
+
 const SJSON = JSON.stringify(statusS);
-const FJSON = JSON.stringify(statusF);
+//const FJSON = JSON.stringify(statusF);
+
 exports.create = async (req, res) => {
 
     var userName = req.body.userName
@@ -18,20 +21,30 @@ exports.create = async (req, res) => {
     var type = req.body.type
     var email = req.body.email
 
-    db.run('INSERT INTO User (userName, email,password,type) VALUES ?', [userName, email, password, type], function (err, result) {
+    let sql = 'INSERT INTO User (userName, email,password,type) VALUES ?';
+    let data = [userName, email, password, type];
+
+    db.run(sql, data, function (err, result) {
         if (err) {
-            res.send(FJSON);
+            res.send(Json.stringify(err));
         }
         else {
             res.send(SJSON);
         }
     });
+
+    db.close();
+
     if (type === "Company") {
         var companyName = req.body.companyName
         var location = req.body.location
-        db.run('INSERT INTO Company (companyName, location) VALUES ?', [companyName, location], function (err, result) {
+
+        let sql = 'INSERT INTO Company (companyName, location) VALUES ?';
+        let data = [companyName, location];
+
+        db.run(sql, data, function (err, result) {
             if (err) {
-                res.send(FJSON);
+                res.send(Json.stringify(err));
             }
             else {
                 res.send(SJSON);
@@ -44,16 +57,18 @@ exports.create = async (req, res) => {
         var lastName = req.body.lastName
         var birthDate = req.body.birthDate
 
-        db.run('INSERT INTO JopSeeker (seeker_id, firstName,lastName,birthDate) VALUES ?', [seeker_id, firstName, lastName, birthDate], function (err, result) {
+        let sql = 'INSERT INTO JopSeeker (seeker_id, firstName,lastName,birthDate) VALUES ?';
+        let data = [seeker_id, firstName, lastName, birthDate];
+
+        db.run(sql, data, function (err, result) {
             if (err) {
-                res.send(FJSON);
+                res.send(Json.stringify(err));
             }
             else {
                 res.send(SJSON);
             }
         });
     }
-    db.close();
 
     //await User.create(req.body).catch((error) => res.send(error));
     return res.redirect("Back");
@@ -70,7 +85,10 @@ exports.update = async (req, res) => {
             WHERE userName = ?`;
     db.run(sql, data, function (err) {
         if (err) {
-            res.send(FJSON);
+            res.send(Json.stringify(err));
+        }
+        else {
+            res.send(SJSON);
         }
 
     });
@@ -80,28 +98,55 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
     var userName = req.body.userName
     let data = [userName];
-    let sql = `DELETE FROM Users WHERE userName= ?`;
+    let sql = `DELETE FROM User WHERE userName= ?`;
     db.run(sql, data, function (err) {
         if (err) {
-            res.send(FJSON);
+            res.send(Json.stringify(err));
+        }
+        else {
+            res.send(SJSON);
         }
 
     });
     db.close();
 };
 
-exports.getAllUsers = async (req, res) => {
+exports.getAllUser = async (req, res) => {
 
-    let sql = `SELECT * FROM Users `;
+    let sql = `SELECT * FROM User `;
 
     db.run(sql, function (err, result) {
         if (err) {
-            res.send(FJSON);
+            res.send(Json.stringify(err));
+        }
+        else {
+            res.send(SJSON);
         }
 
         res.send(JSON.stringify(result));
     });
 
     db.close();
-    var User = await User.findAll({}).catch((error) => res.send(error));
+    //var User = await User.findAll({}).catch((error) => res.send(error));
+};
+
+exports.getAUser = async (req, res) => {
+
+    var userName = req.body.userName
+    let data = [userName];
+    let sql = `SELECT * FROM User WHERE userName= ?`;
+
+    db.run(sql, data, function (err, result) {
+        if (err) {
+            res.send(Json.stringify(err));
+        }
+        else {
+            res.send(SJSON);
+        }
+
+        res.send(JSON.stringify(result));
+    });
+
+    db.close();
+    //var User = await User.findAll({}).catch((error) => res.send(error));
 };

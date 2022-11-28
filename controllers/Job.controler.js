@@ -4,11 +4,11 @@ const statusS = {
     Status: 'successful'
 
 }
-const statusF = {
-    Status: 'Failed'
-}
+// const statusF = {
+//     Status: 'Failed'
+// }
 const SJSON = JSON.stringify(statusS);
-const FJSON = JSON.stringify(statusF);
+//const FJSON = JSON.stringify(statusF);
 exports.create = async (req, res) => {
 
     var job_id = req.body.job_id
@@ -18,9 +18,13 @@ exports.create = async (req, res) => {
     var locationType = req.body.locationType
     var entryLevel = req.body.entryLevel
     var jobType = req.body.jobType
-    db.run('INSERT INTO Job (job_id, jobName,location,datePosted,locationType,entryLevel,jobType) VALUES ?', [job_id, jobName, location, datePosted, locationType, entryLevel, jobType], function (err, result) {
+
+    let sql = 'INSERT INTO Job (job_id, jobName,location,datePosted,locationType,entryLevel,jobType) VALUES ?';
+    let data = [job_id, jobName, location, datePosted, locationType, entryLevel, jobType]
+
+    db.run(sql, data, function (err, result) {
         if (err) {
-            res.send(FJSON);
+            res.send(Json.stringify(err));
         }
         else {
             res.send(SJSON);
@@ -45,7 +49,10 @@ exports.update = async (req, res) => {
             WHERE job_id = ?`;
     db.run(sql, data, function (err) {
         if (err) {
-            res.send(FJSON);
+            res.send(Json.stringify(err));
+        }
+        else {
+            res.send(SJSON);
         }
     });
     db.close();
@@ -56,16 +63,15 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     var job_id = req.body.job_id
-    var jobName = req.body.jobName
-    var location = req.body.location
-    var datePosted = req.body.datePosted
-    var locationType = req.body.locationType
-    var entryLevel = req.body.entryLevel
-    var jobType = req.body.jobType
+    let data = [job_id];
+
     let sql = `DELETE FROM Job WHERE job_id= ?`;
     db.run(sql, data, function (err) {
         if (err) {
-            res.send(FJSON);
+            res.send(Json.stringify(err));
+        }
+        else {
+            res.send(SJSON);
         }
     });
     db.close();
@@ -77,5 +83,41 @@ exports.delete = async (req, res) => {
 };
 
 exports.getAlljobs = async (req, res) => {
-    var job = await Job.findAll({}).catch((error) => res.send(error));
+    
+    let sql = `SELECT * FROM Job `;
+
+    db.run(sql, function (err, result) {
+        if (err) {
+            res.send(Json.stringify(err));
+        }
+        else {
+            res.send(SJSON);
+        }
+
+        res.send(JSON.stringify(result));
+    });
+
+    db.close();
+
 };
+
+exports.getAjob = async (req, res) => {
+
+    var job_id = req.body.job_id
+    let data = [job_id];
+    let sql = `SELECT * FROM Job WHERE job_id= ?`;
+
+    db.run(sql, data, function (err, result) {
+        if (err) {
+            res.send(Json.stringify(err));
+        }
+        else {
+            res.send(SJSON);
+        }
+
+        res.send(JSON.stringify(result));
+    });
+
+    db.close();
+
+}
