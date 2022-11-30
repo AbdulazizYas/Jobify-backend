@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
 var path = require('path');
+var jobModel = require("../controllers/Job.controler");
 
 //
 router.get("/", (req, res) => {
-    res.sendStatus(404);
+    res.json(jobModel.getAlljobs);
 });
 
-router.get("/:userName", (req, res) => {
-    const userName = req.params.userName;
-    
+router.get("/:job_id", (req, res) => {
+    res.json(jobModel.getAjob(req));
 });
 //
 
