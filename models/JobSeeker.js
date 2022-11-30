@@ -1,9 +1,9 @@
-const sequelize = new Sequelize('sqlite::memory:');
+module.exports = (sequelize, DataTypes) => {
 const JopSeeker = sequelize.define(
   "JopSeeker",
   {
     seeker_id: {
-      type: Sequelize.UUID,
+      type: sequelize.UUID,
       primaryKey: true,
       allowNull: false,
       validate: {
@@ -13,7 +13,7 @@ const JopSeeker = sequelize.define(
   },
   {
     firstName: {
-      type: Sequelize.STRING,
+      type: sequelize.STRING,
       primaryKey: false,
       allowNull: false,
       validate: {
@@ -23,7 +23,7 @@ const JopSeeker = sequelize.define(
   },
   {
     lastName: {
-      type: Sequelize.STRING,
+      type: sequelize.STRING,
       primaryKey: false,
       allowNull: false,
       validate: {
@@ -33,7 +33,7 @@ const JopSeeker = sequelize.define(
   },
   {
     birthDate: {
-      type: Sequelize.DATE,
+      type: sequelize.DATE,
       primaryKey: false,
       allowNull: false,
       validate: {
@@ -52,3 +52,4 @@ JopSeeker.associate = (models) => {
 };
 
 return JopSeeker;
+};

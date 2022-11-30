@@ -1,9 +1,9 @@
-const sequelize = new Sequelize('sqlite::memory:');
+module.exports = (sequelize, DataTypes) => {
 const Company = sequelize.define(
   "Company",
   {
     companyName: {
-      type: Sequelize.STRING,
+      type: sequelize.STRING,
       primaryKey: true,
       allowNull: false,
       validate: {
@@ -13,7 +13,7 @@ const Company = sequelize.define(
   },
   {
     location: {
-      type: Sequelize.STRING,
+      type: sequelize.STRING,
       primaryKey: false,
       allowNull: false,
       validate: {
@@ -35,3 +35,4 @@ Company.associate = (models) => {
 };
 
 return Company;
+};

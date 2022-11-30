@@ -1,9 +1,9 @@
-const sequelize = new Sequelize('sqlite::memory:');
+module.exports = (sequelize, DataTypes) => {
 const Administrator = sequelize.define(
   "Administrator",
   {
     admin_id: {
-      type: Sequelize.UUID,
+      type: sequelize.UUID,
       primaryKey: true,
       allowNull: false,
       validate: {
@@ -14,7 +14,7 @@ const Administrator = sequelize.define(
   },
   {
     firstName: {
-      type: Sequelize.STRING,
+      type: sequelize.STRING,
       primaryKey: false,
       allowNull: false,
       validate: {
@@ -24,7 +24,7 @@ const Administrator = sequelize.define(
   },
   {
     lastName: {
-      type: Sequelize.STRING,
+      type: sequelize.STRING,
       primaryKey: false,
       allowNull: false,
       validate: {
@@ -44,3 +44,4 @@ Administrator.associate = (models) => {
 };
 
 return Administrator;
+};

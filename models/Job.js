@@ -1,9 +1,9 @@
-const sequelize = new Sequelize('sqlite::memory:');
+module.exports = (sequelize, DataTypes) => {
 const Job = sequelize.define(
     "Job",
     { 
         job_id: {
-            type: Sequelize.UUID,
+            type: sequelize.UUID,
             primaryKey: true,
             allowNull: false,
             validate: {
@@ -13,7 +13,7 @@ const Job = sequelize.define(
     },
     { 
         jobName: {
-            type: Sequelize.STRING,
+            type: sequelize.STRING,
             primaryKey: false,
             allowNull: false,
             validate: {
@@ -23,7 +23,7 @@ const Job = sequelize.define(
     },
     { 
         location: {
-            type: Sequelize.STRING,
+            type: sequelize.STRING,
             primaryKey: false,
             allowNull: false,
             validate: {
@@ -33,7 +33,7 @@ const Job = sequelize.define(
     },
     { 
         datePosted: {
-            type: Sequelize.DATE,
+            type: sequelize.DATE,
             primaryKey: false,
             allowNull: false,
             validate: {
@@ -43,7 +43,7 @@ const Job = sequelize.define(
     },
     { 
         locationType: {
-            type: Sequelize.STRING,
+            type: sequelize.STRING,
             primaryKey: false,
             allowNull: false,
             validate: {
@@ -53,7 +53,7 @@ const Job = sequelize.define(
     },
     { 
         entryLevel: {
-            type: Sequelize.STRING,
+            type: sequelize.STRING,
             primaryKey: false,
             allowNull: false,
             validate: {
@@ -63,7 +63,7 @@ const Job = sequelize.define(
     },
     { 
         jobType: {
-            type: Sequelize.STRING,
+            type: sequelize.STRING,
             primaryKey: false,
             allowNull: false,
             validate: {
@@ -73,7 +73,7 @@ const Job = sequelize.define(
     },
     // { 
     //     salary: {
-    //         type: Sequelize.INTEGER,
+    //         type: sequelize.INTEGER,
     //         primaryKey: false,
     //         allowNull: false,
     //         validate: {
@@ -89,6 +89,11 @@ const Job = sequelize.define(
         foreignKey: "companyName",
         as: "companyName"
     });
+    Job.hasMany(models.JopSeeker, {
+        foreignKey: "seeker_id",
+        as: "seeker_id"
+      });
   };
   
 return Job;
+};
