@@ -1,10 +1,10 @@
-const sequelize = new Sequelize('sqlite::memory:');
+module.exports = (sequelize, DataTypes) => {
 const User = sequelize.define(
     "User",
 
     {
         userName: {
-            type: Sequelize.STRING,
+            type: sequelize.STRING,
             primaryKey: true,
             allowNull: false,
             validate: {
@@ -14,7 +14,7 @@ const User = sequelize.define(
     },
     {
         email: {
-            type: Sequelize.STRING,
+            type: sequelize.STRING,
             primaryKey: false,
             allowNull: false,
             validate: {
@@ -24,7 +24,7 @@ const User = sequelize.define(
     },
     {
         password: {
-            type: Sequelize.STRING,
+            type: sequelize.STRING,
             primaryKey: false,
             allowNull: false,
             validate: {
@@ -34,7 +34,7 @@ const User = sequelize.define(
     },
     {
         type: {
-            type: Sequelize.STRING,
+            type: sequelize.STRING,
             primaryKey: false,
             allowNull: false,
             validate: {
@@ -61,3 +61,4 @@ User.associate = (models) => {
 };
 
 return User; 
+};

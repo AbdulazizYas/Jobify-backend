@@ -21,22 +21,27 @@
 //     runQueries(db);
 // });
 
-var sqlite3 = require('sqlite3').verbose();
-let dba= new sqlite3.Database('./test.db', sqlite3.OPEN_READWRITE , (err) => {
-    if (err) {
-       console.log(err.message)
+var sqlite3 = require('sqlite3');
+let db= new sqlite3.Database('./mcu.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+    if (err && err.code == "SQLITE_CANTOPEN") {
+        createDatabase();
+        return;
+        } else if (err) {
+            console.log("Getting error " + err);
+            exit(1);
     }
    
 });
 
-// const x = {
-//     userName: "sniperxx",
-//     password: "123",
-//     email: "d70me@gmail.com",
-//     type: "Company",
-//     companyName: "xxx",
-//     location: "dammam"
-// }
+function createDatabase() {
+    var newdb = new sqlite3.Database('mcu.db', (err) => {
+        if (err) {
+            console.log("Getting error " + err);
+            exit(1);
+        }
+        createTables(newdb);
+    });
+}
 
 // const y = JSON.stringify(x)
 

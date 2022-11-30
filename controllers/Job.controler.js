@@ -120,4 +120,24 @@ exports.getAjob = async (req, res) => {
 
     db.close();
 
-}
+};
+
+// exports.getAllApplicant = async (req, res) => {
+    
+//     let sql = `SELECT * FROM Job, JobSeeker
+//                 WHERE JobSeeker`;
+
+//     db.run(sql, function (err, result) {
+//         if (err) {
+//             res.send(Json.stringify(err));
+//         }
+//         else {
+//             res.send(SJSON);
+//         }
+
+//         res.send(JSON.stringify(result));
+//     });
+
+//     db.close();
+
+// };

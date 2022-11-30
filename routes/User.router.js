@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
 var path = require('path');
+var userCon = require("../controllers/User.controler");
 
 //
 router.get("/", (req, res) => {
-    res.sendStatus(404);
+    res.json(userCon.getAllUser);
 });
 
 router.get("/:userName", (req, res) => {
-    const userName = req.params.userName;
-    
+    res.json(userCon.getAUser(req));
 });
 //
 
