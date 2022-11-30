@@ -22,7 +22,7 @@
 // });
 
 var sqlite3 = require('sqlite3');
-let db= new sqlite3.Database('./mcu.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+let db= new sqlite3.Database('./database.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
     if (err && err.code == "SQLITE_CANTOPEN") {
         createDatabase();
         return;
@@ -34,7 +34,7 @@ let db= new sqlite3.Database('./mcu.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_C
 });
 
 function createDatabase() {
-    var newdb = new sqlite3.Database('mcu.db', (err) => {
+    var newdb = new sqlite3.Database('./database.db', (err) => {
         if (err) {
             console.log("Getting error " + err);
             exit(1);
