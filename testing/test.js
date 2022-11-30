@@ -13,7 +13,7 @@ const x = {
 
 const y = JSON.stringify(x)
 
-app.post("/User.controler/create", function (req, res) {
+app.post("../User.controler/create", function (req, res) {
     res.json(y);
 });
 

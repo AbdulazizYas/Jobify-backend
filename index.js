@@ -1,8 +1,8 @@
-const express = require("express");
-const app = express();
+eR Te oe
 
-app.get("/", (req, res) => {
-  res.send("<h1>Jobify</h1>");
-});
+Pe en aera See oe Cea
+De eter Cer
 
-app.listen(3000, () => console.log("listening on port 3000 ..."));
+i Rec eS
+Ds
+
