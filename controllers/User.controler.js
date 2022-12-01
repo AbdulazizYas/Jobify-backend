@@ -1,5 +1,6 @@
-const { json } = require("sequelize");
-let db = require("../models");
+var sqlite3 = require('sqlite3');
+
+var db = new sqlite3.Database('database.db');
 // var User = db.User;
 // var CompanyDB = db.Company;
 

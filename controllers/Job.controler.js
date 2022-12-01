@@ -1,5 +1,6 @@
-let db = require("../models");
-var Job = db.Job;
+var sqlite3 = require('sqlite3');
+
+var db = new sqlite3.Database('database.db');
 const statusS = {
     Status: 'successful'
 
@@ -83,21 +84,34 @@ exports.delete = async (req, res) => {
 };
 
 exports.getAlljobs = async (req, res) => {
-    
+
+    // Requiring fs module
+    const fs = require("fs");
+
+    // Storing the JSON format data in myObject
+    var data = fs.readFileSync("data.json");
+    var myObject = JSON.parse(data)
     let sql = `SELECT * FROM Job `;
 
-    db.run(sql, function (err, result) {
+    db.all(sql, function (err, result) {
         if (err) {
             res.send(Json.stringify(err));
         }
-        else {
-            res.send(SJSON);
-        }
+        result.forEach(rows => {
+            myObject.push(rows);
+        })
 
-        res.send(JSON.stringify(result));
+        // else {
+        //     res.send({ status:'successful'});
+        // }
+        //res.send(result);
     });
-
-    db.close();
+    res.send(myObject);
+    // db.all(`SELECT * FROM Job `, [], (err, rows) => {
+    //     if (err) return console.error(err.message);
+    //     res.send(Json.stringify(rows))
+    // });
+    //db.close();
 
 };
 

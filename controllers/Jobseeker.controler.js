@@ -1,6 +1,6 @@
-let db = require("../models");
-var JobSeeker = db.JobSeeker;
+var sqlite3 = require('sqlite3');
 
+var db = new sqlite3.Database('database.db');
 const statusS = {
     Status: 'successful'
 }

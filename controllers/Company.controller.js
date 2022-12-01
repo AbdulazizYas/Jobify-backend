@@ -1,4 +1,6 @@
-let db = require("../models");
+var sqlite3 = require('sqlite3');
+
+var db = new sqlite3.Database('database.db');
 var Company = db.Company;
 
 const statusS = {

@@ -5,12 +5,13 @@ var jobCon = require("../controllers/Job.controler");
 
 //
 router.get("/", (req, res) => {
-    res.json(jobCon.getAlljobs);
+    console.log(jobCon.getAlljobs())
+    res.json(jobCon.getAlljobs());
 });
 
-router.get("/:job_id", (req, res) => {
-    res.json(jobCon.getAjob(req));
-});
+// router.get("/:job_id", (req, res) => {
+//     res.json(jobCon.getAjob(req));
+// });
 //
 
 module.exports = router;

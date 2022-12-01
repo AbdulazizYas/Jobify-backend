@@ -1,47 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
-const Administrator = sequelize.define(
-  "Administrator",
-  {
-    admin_id: {
-      type: sequelize.UUID,
-      primaryKey: true,
-      allowNull: false,
-      validate: {
-        notNull: { msg: 'admin must have an id' },
-       
-      },
-    }
-  },
-  {
-    firstName: {
-      type: sequelize.STRING,
-      primaryKey: false,
-      allowNull: false,
-      validate: {
-        notNull: { msg: 'user must have a first name' },
-      },
-    }
-  },
-  {
-    lastName: {
-      type: sequelize.STRING,
-      primaryKey: false,
-      allowNull: false,
-      validate: {
-        notNull: { msg: 'user must have a last name' },
-      },
-    }
-  },
-  //{ timestamps: false }
-);
+  var sqlite3 = require('sqlite3');
 
-Administrator.associate = (models) => {
-  Administrator.belongTo(models.User, {
-    foreignKey: "userName",
-    as: "userName"
+  var db = new sqlite3.Database('database.db');
+
+  db.serialize(function () {
+    // Create a table
+    db.run("CREATE TABLE IF NOT EXISTS administrator (admin_id INTEGER PRIMARY KEY IDENTITY(1,1) , firstName VARCHAR(20) NOT NULL, lastName VARCHAR(20) NOT NULL,userName VARCHAR(30) NOT NULL, FOREIGN KEY (userName) REFERENCES User(userName)");
+    // Insert data into the table
+
+    // Query data from the table
+
   });
-
-};
-
-return Administrator;
 };
