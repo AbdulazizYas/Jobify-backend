@@ -14,7 +14,7 @@ exports.update = async (req, res) => {
 
 exports.getAllseekeres = async (req, res) => {
     
-    const seekers = await JobSeeker.findAll();
+    const seekers = await JobSeeker.findAll().catch((err) => res.json({status:err}));
     res.json(seekers);
 
 };
@@ -22,7 +22,7 @@ exports.getAllseekeres = async (req, res) => {
 exports.getAseeker = async (req, res) => {
 
     const seeker_id = req.body.seeker_id;
-    const seeker = await JobSeeker.findOne({where: {seeker_id}});
+    const seeker = await JobSeeker.findOne({where: {seeker_id}}).catch((err) => res.json({status:err}));
 
     if (seeker === null) {
         res.json({status: "not-found"});
