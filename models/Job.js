@@ -89,10 +89,6 @@ const Job = sequelize.define(
         foreignKey: "companyName",
         as: "companyName"
     });
-    Job.hasMany(models.JopSeeker, {
-        foreignKey: "seeker_id",
-        as: "seeker_id"
-      });
   };
   
 return Job;
