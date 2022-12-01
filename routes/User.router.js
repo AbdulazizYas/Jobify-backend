@@ -1,16 +1,9 @@
 const express = require("express");
 const router = express.Router();
-var path = require('path');
 var userCon = require("../controllers/User.controler");
 
-//
-router.get("/", (req, res) => {
-    res.json(userCon.getAllUser);
-});
+router.get("/", userCon.getAllUser);
 
-router.get("/:userName", (req, res) => {
-    res.json(userCon.getAUser(req));
-});
-//
+router.get("/:userName", userCon.getAUser);
 
 module.exports = router;

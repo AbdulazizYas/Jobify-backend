@@ -1,143 +1,66 @@
-let db = require("../models");
-var Job = db.Job;
-const statusS = {
-    Status: 'successful'
+const Company = require("../models/Company");
+const Job = require("../models/Job");
 
-}
-// const statusF = {
-//     Status: 'Failed'
-// }
-const SJSON = JSON.stringify(statusS);
-//const FJSON = JSON.stringify(statusF);
 exports.create = async (req, res) => {
 
-    var job_id = req.body.job_id
-    var jobName = req.body.jobName
-    var location = req.body.location
-    var datePosted = req.body.datePosted
-    var locationType = req.body.locationType
-    var entryLevel = req.body.entryLevel
-    var jobType = req.body.jobType
+    const registration_id = req.body.registration_id;
+    const company = await Company.findOne({where: {registration_id}}).catch((err) => res.json({status:err}));
 
-    let sql = 'INSERT INTO Job (job_id, jobName,location,datePosted,locationType,entryLevel,jobType) VALUES ?';
-    let data = [job_id, jobName, location, datePosted, locationType, entryLevel, jobType]
+    await company.createJob(req.body)
+    .catch((error) => res.json({starus:error}));
 
-    db.run(sql, data, function (err, result) {
-        if (err) {
-            res.send(Json.stringify(err));
-        }
-        else {
-            res.send(SJSON);
-        }
-    });
-    db.close();
-    //await Job.create(req.body).catch((error) => res.send(error));
-    //return res.redirect("Back");
+    return res.json({status: "ok"});
+
 };
 
 exports.update = async (req, res) => {
-    var job_id = req.body.job_id
-    var jobName = req.body.jobName
-    var location = req.body.location
-    var datePosted = req.body.datePosted
-    var locationType = req.body.locationType
-    var entryLevel = req.body.entryLevel
-    var jobType = req.body.jobType
-    let data = [job_id, jobName, location, datePosted, locationType, entryLevel, jobType, job_id];
-    let sql = `UPDATE Job
-            SET job_id = ?, jobName = ?, location = ?, datePosted = ?, locationType = ?, entryLevel = ?, jobType = ?
-            WHERE job_id = ?`;
-    db.run(sql, data, function (err) {
-        if (err) {
-            res.send(Json.stringify(err));
-        }
-        else {
-            res.send(SJSON);
-        }
-    });
-    db.close();
 
-    //await Job.update(req.body, { where: { id } }).catch((error) => res.send(error));
-    //return res.redirect("Back");
+    const job_id = req.body.job_id;
+    const job = await Job.findOne({where: {job_id}}).catch((err) => res.json({status:err}));
+
+    await job.update(req.body)
+    .catch((error) => res.json({starus:error}));
+
+    return res.json({status: "ok"});
+
 };
 
 exports.delete = async (req, res) => {
-    var job_id = req.body.job_id
-    let data = [job_id];
 
-    let sql = `DELETE FROM Job WHERE job_id= ?`;
-    db.run(sql, data, function (err) {
-        if (err) {
-            res.send(Json.stringify(err));
-        }
-        else {
-            res.send(SJSON);
-        }
-    });
-    db.close();
+    const job_id = req.body.job_id;
+    const job = await Job.findOne({where: {job_id}}).catch((err) => res.json({status:err}));
 
+    await job.destroy()
+    .catch((error) => res.json({starus:error}));
 
+    return res.json({status: "ok"});
 
-    //await Job.delete({ where: { id } }).catch((error) => res.send(error));
-    //return res.redirect("Back");
 };
 
 exports.getAlljobs = async (req, res) => {
-    
-    let sql = `SELECT * FROM Job `;
 
-    db.run(sql, function (err, result) {
-        if (err) {
-            res.send(Json.stringify(err));
-        }
-        else {
-            res.send(SJSON);
-        }
-
-        res.send(JSON.stringify(result));
-    });
-
-    db.close();
+    const jobs = await Job.findAll();
+    res.json(jobs);
 
 };
 
 exports.getAjob = async (req, res) => {
 
-    var job_id = req.body.job_id
-    let data = [job_id];
-    let sql = `SELECT * FROM Job WHERE job_id= ?`;
+    const job_id = req.body.job_id;
+    const job = await Job.findOne({where: {job_id}});
 
-    db.run(sql, data, function (err, result) {
-        if (err) {
-            res.send(Json.stringify(err));
-        }
-        else {
-            res.send(SJSON);
-        }
+    if (job === null) {
+        res.json({status: "not-found"});
+      } else {
+        res.json(job);
+      }
 
-        res.send(JSON.stringify(result));
-    });
-
-    db.close();
+    return res.json({status: "ok"});
 
 };
 
 // exports.getAllApplicant = async (req, res) => {
     
-//     let sql = `SELECT * FROM Job, JobSeeker
-//                 WHERE JobSeeker`;
-
-//     db.run(sql, function (err, result) {
-//         if (err) {
-//             res.send(Json.stringify(err));
-//         }
-//         else {
-//             res.send(SJSON);
-//         }
-
-//         res.send(JSON.stringify(result));
-//     });
-
-//     db.close();
+    
 
 // };

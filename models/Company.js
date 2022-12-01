@@ -2,9 +2,19 @@ module.exports = (sequelize, DataTypes) => {
 const Company = sequelize.define(
   "Company",
   {
+    registration_id: {
+      type: sequelize.UUID,
+      primaryKey: true,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'company must have an id' },
+      },
+    }
+  },
+  {
     companyName: {
       type: sequelize.STRING,
-      primaryKey: true,
+      primaryKey: false,
       allowNull: false,
       validate: {
         notNull: { msg: 'company must have a  name' },
