@@ -1,85 +1,60 @@
-let db = require("../models");
-var Company = db.Company;
+const Company = require("../models/Company");
 
-const statusS = {
-    Status: 'successful'
-}
-// const statusF = {
-//     Status: 'Failed'
-// }
+exports.create = async (req, res) => {
 
-const SJSON = JSON.stringify(statusS);
-//const FJSON = JSON.stringify(statusF);
-exports.update = async (req, res) => {
-    var companyName = req.body.companyName
-    var password = req.body.password
-    let data = [companyName, password, companyName];
-    let sql = `UPDATE Company
-            SET companyName = ?, location = ? 
-            WHERE companyName = ?`;
-    db.run(sql, data, function (err) {
-        if (err) {
-            res.send(Json.stringify(err));
-        }
-        else {
-            res.send(SJSON);
-        }
+    const registration_id = req.body.registration_id;
+    const company = await Company.findOne({ where: { registration_id } }).catch((err) => res.json({ status: err }));
 
-    });
-    db.close();
+    await company.create(req.body)
+        .catch((error) => res.json({ starus: error }));
+
+    return res.json({ status: "ok" });
+
 };
 
-// exports.delete = async (req, res) => {
+exports.update = async (req, res) => {
 
-//     var companyName = req.body.companyName
-//     var password = req.body.password
-//     let data = [companyName, password, companyName];
-//     let sql = `DELETE FROM Company WHERE companyName= ?`;
-//     db.run(sql, data, function (err) {
-//         if (err) {
-//             res.send(Json.stringify(err));
-//         }
-//         else {
-//             res.send(SJSON);
-//         }
-//     });
-//     db.close();
-//     //return res.redirect("Back");
-// };
+    const registration_id = req.body.registration_id;
+    const Comp = await Company.findOne({ where: { registration_id } }).catch((err) => res.json({ status: err }));
 
-exports.getAllCompanies = async (req, res) => {
-    let sql = `SELECT * FROM Company `;
+    await Comp.update(req.body)
+        .catch((error) => res.json({ starus: error }));
 
-    db.run(sql, function (err, result) {
-        if (err) {
-            res.send(Json.stringify(err));
-        }
-        else {
-            res.send(SJSON);
-        }
-    });
+    return res.json({ status: "ok" });
 
-    db.close();
-    //var company = await Company.findAll({}).catch((error) => res.send(error));
+};
+
+exports.delete = async (req, res) => {
+
+    const registration_id = req.body.registration_id;
+    const Comp = await Company.findOne({ where: { registration_id } }).catch((err) => res.json({ status: err }));
+
+    await Comp.destroy()
+        .catch((error) => res.json({ starus: error }));
+
+    return res.json({ status: "ok" });
+
+};
+
+exports.getAllcompanies = async (req, res) => {
+
+    const registration_id = req.body.registration_id;
+    const Comp = await Company.findOne({ where: { registration_id } }).catch((err) => res.json({ status: err }));
+    res.json(Comp);
+
 };
 
 exports.getAcompany = async (req, res) => {
 
-    var companyName = req.body.companyName
-    let data = [companyName];
-    let sql = `SELECT * FROM Company WHERE companyName= ?`;
+    const registration_id = req.body.registration_id;
+    const Comp = await Company.findOne({ where: { registration_id } }).catch((err) => res.json({ status: err }));
 
-    db.run(sql, data, function (err, result) {
-        if (err) {
-            res.send(Json.stringify(err));
-        }
-        else {
-            res.send(SJSON);
-        }
+    if (Comp === null) {
+        res.json({ status: "not-found" });
+    } else {
+        res.json(Comp);
+    }
 
-        res.send(JSON.stringify(result));
-    });
+    return res.json({ status: "ok" });
 
-    db.close();
-
-}
+};
