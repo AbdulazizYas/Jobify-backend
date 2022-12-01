@@ -1,5 +1,6 @@
 const Company = require("../models/Company");
 const Job = require("../models/Job");
+const Applicant = require("../models/Applicant");
 
 exports.create = async (req, res) => {
 
@@ -59,8 +60,12 @@ exports.getAjob = async (req, res) => {
 
 };
 
-// exports.getAllApplicant = async (req, res) => {
+exports.getAllApplicant = async (req, res) => {
     
-    
+    const job_id = req.body.job_id;
+    const job = await Job.findOne({where: {job_id}});
 
-// };
+    const applicants = await Applicant.findAll({where: {job}});
+    res.json(applicants);
+
+};
