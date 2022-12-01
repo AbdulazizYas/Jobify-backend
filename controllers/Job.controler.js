@@ -40,7 +40,7 @@ exports.delete = async (req, res) => {
 
 exports.getAlljobs = async (req, res) => {
 
-    const jobs = await Job.findAll();
+    const jobs = await Job.findAll().catch((err) => res.json({status:err}));
     res.json(jobs);
 
 };
@@ -48,7 +48,7 @@ exports.getAlljobs = async (req, res) => {
 exports.getAjob = async (req, res) => {
 
     const job_id = req.body.job_id;
-    const job = await Job.findOne({where: {job_id}});
+    const job = await Job.findOne({where: {job_id}}).catch((err) => res.json({status:err}));
 
     if (job === null) {
         res.json({status: "not-found"});
@@ -63,7 +63,7 @@ exports.getAjob = async (req, res) => {
 exports.getAllApplicant = async (req, res) => {
     
     const job_id = req.body.job_id;
-    const job = await Job.findOne({where: {job_id}});
+    const job = await Job.findOne({where: {job_id}}).catch((err) => res.json({status:err}));
 
     const applicants = await Applicant.findAll({where: {job}});
     res.json(applicants);

@@ -1,47 +1,68 @@
-const administrator = require("../models/administrator");
+let db = require("../models");
+var administrator = db.administrator;
 
+const statusS = {
+    Status: 'successful'
+}
+// const statusF = {
+//     Status: 'Failed'
+// }
 
-
-exports.create = async (req, res) => {
-
-    const admin_id = req.body.admin_id;
-    const admin = await administrator.findOne({ where: { admin_id } }).catch((err) => res.json({ status: err }));
-
-    await admin.createJob(req.body)
-        .catch((error) => res.json({ starus: error }));
-
-    return res.json({ status: "ok" });
-
-};
+const SJSON = JSON.stringify(statusS);
 //const FJSON = JSON.stringify(statusF);
 exports.update = async (req, res) => {
-    const admin_id = req.body.admin_id;
-    const admin = await administrator.findOne({ where: { admin_id } }).catch((err) => res.json({ status: err }));
+    var admin_id = req.body.admin_id
+    var firstName = req.body.firstName
+    var lastName = req.body.lastName
+    let data = [admin_id, firstName, lastName];
+    let sql = `UPDATE Administrator
+            SET admin_id = ?, firstName = ?, lastName = ?
+            WHERE admin_id = ?`;
+    db.run(sql, data, function (err) {
+        if (err) {
+            res.send(Json.stringify(err));
+        }
+        else {
+            res.send(SJSON);
+        }
 
-    await admin.update(req.body)
-        .catch((error) => res.json({ starus: error }));
-
-    return res.json({ status: "ok" });
-
+    });
+    db.close();
 };
 
 exports.getAlladministrators = async (req, res) => {
+    let sql = `SELECT * FROM Administrator `;
 
-    const admin = await administrator.findAll().catch((err) => res.json({ status: err }));;
-    res.json(admin)
+    db.run(sql, function (err, result) {
+        if (err) {
+            res.send(Json.stringify(err));
+        }
+        else {
+            res.send(SJSON);
+        }
+    });
+
+    db.close();
+    //var company = await Company.findAll({}).catch((error) => res.send(error));
 };
 
 exports.getAadministrator = async (req, res) => {
 
-    const admin_id = req.body.admin_id;
-    const admin = await administrator.findOne({ where: { admin_id } }).catch((err) => res.json({ status: err }));
+    var admin_id = req.body.admin_id
+    let data = [admin_id];
+    let sql = `SELECT * FROM Administrator WHERE admin_id= ?`;
 
-    if (admin === null) {
-        res.json({ status: "not-found" });
-    } else {
-        res.json(admin);
-    }
+    db.run(sql, data, function (err, result) {
+        if (err) {
+            res.send(Json.stringify(err));
+        }
+        else {
+            res.send(SJSON);
+        }
 
-    return res.json({ status: "ok" });
+        res.send(JSON.stringify(result));
+    });
+
+    db.close();
 
 }
