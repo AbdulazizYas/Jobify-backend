@@ -49,6 +49,7 @@ JopSeeker.associate = (models) => {
     foreignKey: "username",
     as: "username"
   });
+  JopSeeker.belongsToMany(Job, { through: Applicant });
 };
 
 return JopSeeker;

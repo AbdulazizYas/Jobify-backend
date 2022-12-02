@@ -1,6 +1,5 @@
 const Company = require("../models/Company");
 const Job = require("../models/Job");
-const Applicant = require("../models/Applicant");
 
 exports.create = async (req, res) => {
 
