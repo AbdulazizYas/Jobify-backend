@@ -26,7 +26,7 @@ exports.update = async (req, res) => {
 exports.getAlladministrators = async (req, res) => {
 
     const admin = await administrator.findAll().catch((err) => res.json({ status: err }));;
-    res.json(admin);
+    return res.json(admin);
     
 };
 
@@ -36,11 +36,9 @@ exports.getAadministrator = async (req, res) => {
     const admin = await administrator.findOne({ where: { admin_id } }).catch((err) => res.json({ status: err }));
 
     if (admin === null) {
-        res.json({ status: "not-found" });
-    } else {
-        res.json(admin);
+        return res.json({ status: "not-found" });
     }
-
-    return res.json({ status: "ok" });
+    
+    return res.json(admin);
 
 }

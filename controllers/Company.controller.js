@@ -40,7 +40,7 @@ exports.getAllcompanies = async (req, res) => {
 
     const registration_id = req.body.registration_id;
     const Comp = await Company.findOne({ where: { registration_id } }).catch((err) => res.json({ status: err }));
-    res.json(Comp);
+    return res.json(Comp);
 
 };
 
@@ -50,11 +50,9 @@ exports.getAcompany = async (req, res) => {
     const Comp = await Company.findOne({ where: { registration_id } }).catch((err) => res.json({ status: err }));
 
     if (Comp === null) {
-        res.json({ status: "not-found" });
-    } else {
-        res.json(Comp);
+        return res.json({ status: "not-found" });
     }
-
-    return res.json({ status: "ok" });
+    
+    return res.json(Comp);
 
 };
