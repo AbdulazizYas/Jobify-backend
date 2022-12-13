@@ -18,7 +18,8 @@
   "homepage": "https://github.com/AbdulazizYas/Jobify-backend#readme",
   "dependencies": {
     "express": "^4.18.2",
-    "sequelize": "^6.25.8",
+    "mysql": "^2.18.1",
+    "sequelize": "^6.27.0",
     "sqlite3": "^5.1.2"
   },
   "keywords": []

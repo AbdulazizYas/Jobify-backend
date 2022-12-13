@@ -76,3 +76,5 @@ Company.associate = (models) => {
 
 return Company;
 };
+
+await Company.sync();
