@@ -33,7 +33,7 @@ exports.delete = async (req, res) => {
 
 };
 
-exports.getAllseekeres = async (req, res) => {
+exports.getAllSeekeres = async (req, res) => {
     
     const seekers = await JobSeeker.findAll().catch((err) => res.json({status:err}));
     return res.json(seekers);
