@@ -93,10 +93,10 @@ const Job = sequelize.define(
         as: "company"
     });
     // Job.belongsToMany(models.JobSeeker, { through: models.Applicant });
-    Job.hasMany(models.Applicant, {
-        foreignKey: "jobID",
-        as: "applications"
-    });
+    // Job.hasMany(models.Applicant, {
+    //     as: "applications"
+    // });
+    Job.belongsToMany(models.Seeker, { through: "Applicants" });
   };
   
 return Job;

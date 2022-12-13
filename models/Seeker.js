@@ -78,10 +78,10 @@ const Seeker = sequelize.define(
 );
 
 Seeker.associate = (models) => {
-  Seeker.hasMany(models.Applicant, {
-      foreignKey: "seekerUsername",
-      as: "applications"
-    });
+  // Seeker.hasMany(models.Applicant, {
+  //     as: "applications"
+  //   });
+  Seeker.belongsToMany(models.Job, { through: "Applicants" });
 };
 
 return Seeker;

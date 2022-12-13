@@ -1,12 +1,13 @@
 const {Company} = require("../models");
 const {Job} = require("../models");
+const {Seeker} = require("../models");
 
 exports.create = async (req, res) => {
 
-    const username = req.body.username;
+    const username = req.params.username;
     const company = await Company.findOne({where: {username}}).catch((err) => res.json({status:err}));
 
-    await company.createJob(req.body)
+    await company.createJob(req.params)
     .catch((error) => res.json({starus:error}));
 
     return res.json({status: "ok"});
@@ -15,10 +16,10 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
 
-    const job_id = req.body.job_id;
+    const job_id = req.params.job_id;
     const job = await Job.findOne({where: {job_id}}).catch((err) => res.json({status:err}));
 
-    await job.update(req.body)
+    await job.update(req.params)
     .catch((error) => res.json({starus:error}));
 
     return res.json({status: "ok"});
@@ -27,7 +28,7 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
 
-    const job_id = req.body.job_id;
+    const job_id = req.params.job_id;
     const job = await Job.findOne({where: {job_id}}).catch((err) => res.json({status:err}));
 
     await job.destroy()
@@ -44,9 +45,28 @@ exports.getAllJobs = async (req, res) => {
 
 };
 
+exports.getFilterdJobs = async (req, res) => {
+
+    const filter = req.body;
+
+    const jobs = await Job.findAll(
+        {
+            where: {
+            city: filter.city,
+            datePosted: filter.datePosted,
+            jobType: filter.jobType,
+            entryLevel: filter.entryLevel,
+            jobTime: filter.jobTime
+        }
+    }
+    ).catch((err) => res.json({status:err}));
+    return res.json(jobs);
+
+};
+
 exports.getJob = async (req, res) => {
 
-    const job_id = req.body.job_id;
+    const job_id = req.params.job_id;
     const job = await Job.findOne({where: {job_id}}).catch((err) => res.json({status:err}));
 
     if (job === null) {
@@ -59,10 +79,10 @@ exports.getJob = async (req, res) => {
 
 exports.getAllApplicants = async (req, res) => {
     
-    const job_id = req.body.job_id;
-    const job = await Job.findOne({where: {job_id}}).catch((err) => res.json({status:err}));
+    const job_id = req.params.job_id;
+    const job = await Job.findOne({where: {job_id}, include: Seeker}).catch((err) => res.json({status:err}));
 
-    const applicants = await job.getApplicants({where: {job}});
-    return res.json(applicants);
+    // const applicants = await job.getApplicants();
+    return res.json(job.Seekers);
 
 };
