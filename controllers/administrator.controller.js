@@ -1,8 +1,8 @@
-const administrator = require("../models/administrator");
+const {administrator} = require("../models");
 
 exports.create = async (req, res) => {
 
-    await administrator.createJob(req.body)
+    await administrator.createJob(req.params)
         .catch((error) => res.json({ starus: error }));
 
     return res.json({ status: "ok" });
@@ -10,10 +10,10 @@ exports.create = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-    const userName = req.body.userName;
-    const admin = await administrator.findOne({ where: { userName } }).catch((err) => res.json({ status: err }));
+    const username = req.params.username;
+    const admin = await administrator.findOne({ where: { username } }).catch((err) => res.json({ status: err }));
 
-    await admin.update(req.body)
+    await admin.update(req.params)
         .catch((error) => res.json({ starus: error }));
 
     return res.json({ status: "ok" });
@@ -22,7 +22,7 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
 
-    const username = req.body.username;
+    const username = req.params.username;
     const admin = await administrator.findOne({ where: { username } }).catch((err) => res.json({ status: err }));
 
     await admin.destroy()
@@ -41,8 +41,8 @@ exports.getAllAdministrators = async (req, res) => {
 
 exports.getAdministrator = async (req, res) => {
 
-    const userName = req.body.userName;
-    const admin = await administrator.findOne({ where: { userName } }).catch((err) => res.json({ status: err }));
+    const username = req.params.username;
+    const admin = await administrator.findOne({ where: { username } }).catch((err) => res.json({ status: err }));
 
     if (admin === null) {
         return res.json({ status: "not-found" });

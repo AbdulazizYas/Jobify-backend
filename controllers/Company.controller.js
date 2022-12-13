@@ -1,8 +1,8 @@
-const Company = require("../models/Company");
+const {Company} = require("../models");
 
 exports.create = async (req, res) => {
 
-    await Company.create(req.body)
+    await Company.create(req.params)
         .catch((error) => res.json({ starus: error }));
 
     return res.json({ status: "ok" });
@@ -11,10 +11,10 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
 
-    const username = req.body.username;
+    const username = req.params.username;
     const Comp = await Company.findOne({ where: { username } }).catch((err) => res.json({ status: err }));
 
-    await Comp.update(req.body)
+    await Comp.update(req.params)
         .catch((error) => res.json({ starus: error }));
 
     return res.json({ status: "ok" });
@@ -23,7 +23,7 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
 
-    const username = req.body.username;
+    const username = req.params.username;
     const Comp = await Company.findOne({ where: { username } }).catch((err) => res.json({ status: err }));
 
     await Comp.destroy()
@@ -40,9 +40,19 @@ exports.getAllCompanies = async (req, res) => {
 
 };
 
+exports.getCompanyJobs = async (req, res) => {
+
+    const username = req.params.username;
+    const Comp = await Company.findOne({where: {username}}).catch((err) => res.json({ status: err }));
+    const jobs = await Comp.getJobs();
+    
+    return res.json(jobs);
+
+};
+
 exports.getCompany = async (req, res) => {
 
-    const username = req.body.username;
+    const username = req.params.username;
     const Comp = await Company.findOne({ where: { username } }).catch((err) => res.json({ status: err }));
 
     if (Comp === null) {

@@ -3,34 +3,32 @@ const Administrator = sequelize.define(
   "Administrator",
   {
     userName: {
-        type: sequelize.STRING,
+        type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false,
         validate: {
             notNull: { msg: 'a user must have a username' },
         }
-    }
-},
-{
+    },
+
     email: {
-        type: sequelize.STRING,
+        type: DataTypes.STRING,
         primaryKey: false,
         allowNull: false,
         validate: {
             notNull: { msg: 'a user must have an email' },
         }
-    }
-},
-{
+    },
+
     password: {
-        type: sequelize.STRING,
+        type: DataTypes.STRING,
         primaryKey: false,
         allowNull: false,
         validate: {
             notNull: { msg: 'a user must have a password' },
         }
-    }
-},
+    },
+
   // {
   //   admin_id: {
   //     type: sequelize.UUID,
@@ -42,19 +40,18 @@ const Administrator = sequelize.define(
   //     },
   //   }
   // },
-  {
+
     firstName: {
-      type: sequelize.STRING,
+      type: DataTypes.STRING,
       primaryKey: false,
       allowNull: false,
       validate: {
         notNull: { msg: 'user must have a first name' },
       },
-    }
-  },
-  {
+    },
+
     lastName: {
-      type: sequelize.STRING,
+      type: DataTypes.STRING,
       primaryKey: false,
       allowNull: false,
       validate: {
