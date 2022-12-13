@@ -94,5 +94,3 @@ const Job = sequelize.define(
   
 return Job;
 };
-
-await Job.sync();

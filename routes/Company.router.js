@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-var companyCon = require("../controllers/Company.controler");
+var companyCon = require("../controllers/Company.controller");
 
 router.get("/", companyCon.getAllCompanies);
 

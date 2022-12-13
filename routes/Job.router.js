@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-var jobCon = require("../controllers/Job.controler");
+var jobCon = require("../controllers/Job.controller");
 
 router.get("/", jobCon.getAllJobs);
 

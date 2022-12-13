@@ -1,12 +1,25 @@
 const express = require("express");
 const app = express();
 
+const Sequelize = require("sequelize");
+
+const sequelize = new Sequelize("Jobify", "admin", "admin", {
+    host: "127.0.0.1",
+    dialect: "mysql"
+});
+
+module.exports = sequelize;
+global.sequelize = sequelize;
+
 const jobRoutes = require("./routes/Job.router");
 const seekerRoutes = require("./routes/Jobseeker.router");
 const companyRoutes = require("./routes/Company.router");
 
+var port = 3000;
 
-app.listen(3000);
+app.listen(port, function () {
+    console.log(`Server listening on port http://127.0.0.1:${port}!`);
+});
 
 //www.jobify.com/
 app.get("/", (req, res) => {

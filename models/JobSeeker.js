@@ -84,5 +84,3 @@ JopSeeker.associate = (models) => {
 
 return JopSeeker;
 };
-
-await JopSeeker.sync();

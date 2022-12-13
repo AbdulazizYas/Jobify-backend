@@ -75,5 +75,3 @@ const Administrator = sequelize.define(
 
 return Administrator;
 };
-
-await Administrator.sync();
