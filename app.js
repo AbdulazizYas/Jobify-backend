@@ -1,10 +1,13 @@
 const express = require("express");
 const app = express();
 
-const userRoutes = require("./routes/User.router");
 const jobRoutes = require("./routes/Job.router");
+const seekerRoutes = require("./routes/Jobseeker.router");
+const companyRoutes = require("./routes/Company.router");
+
 
 app.listen(3000);
+
 //www.jobify.com/
 app.get("/", (req, res) => {
     res.json({page: "homePage"});
@@ -17,10 +20,11 @@ app.get("/login", (req, res) => {
 app.get("/sign-up", (req, res) => {
     res.json({page: "sign-up page"});
 });
-//www.jobify.com/users/id
-app.use("/users", userRoutes);
 
+//www.jobify.com/?
 app.use("/jobs", jobRoutes);
+app.use("/seekers", seekerRoutes);
+app.use("/companies", companyRoutes);
 
 app.use((req, res) => {
     res.sendStatus(404);

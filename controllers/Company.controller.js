@@ -2,10 +2,7 @@ const Company = require("../models/Company");
 
 exports.create = async (req, res) => {
 
-    const registration_id = req.body.registration_id;
-    const company = await Company.findOne({ where: { registration_id } }).catch((err) => res.json({ status: err }));
-
-    await company.create(req.body)
+    await Company.create(req.body)
         .catch((error) => res.json({ starus: error }));
 
     return res.json({ status: "ok" });
@@ -14,8 +11,8 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
 
-    const registration_id = req.body.registration_id;
-    const Comp = await Company.findOne({ where: { registration_id } }).catch((err) => res.json({ status: err }));
+    const username = req.body.username;
+    const Comp = await Company.findOne({ where: { username } }).catch((err) => res.json({ status: err }));
 
     await Comp.update(req.body)
         .catch((error) => res.json({ starus: error }));
@@ -26,8 +23,8 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
 
-    const registration_id = req.body.registration_id;
-    const Comp = await Company.findOne({ where: { registration_id } }).catch((err) => res.json({ status: err }));
+    const username = req.body.username;
+    const Comp = await Company.findOne({ where: { username } }).catch((err) => res.json({ status: err }));
 
     await Comp.destroy()
         .catch((error) => res.json({ starus: error }));
@@ -36,25 +33,22 @@ exports.delete = async (req, res) => {
 
 };
 
-exports.getAllcompanies = async (req, res) => {
+exports.getAllCompanies = async (req, res) => {
 
-    const registration_id = req.body.registration_id;
-    const Comp = await Company.findOne({ where: { registration_id } }).catch((err) => res.json({ status: err }));
-    res.json(Comp);
+    const Comp = await Company.findAll().catch((err) => res.json({ status: err }));
+    return res.json(Comp);
 
 };
 
-exports.getAcompany = async (req, res) => {
+exports.getCompany = async (req, res) => {
 
-    const registration_id = req.body.registration_id;
-    const Comp = await Company.findOne({ where: { registration_id } }).catch((err) => res.json({ status: err }));
+    const username = req.body.username;
+    const Comp = await Company.findOne({ where: { username } }).catch((err) => res.json({ status: err }));
 
     if (Comp === null) {
-        res.json({ status: "not-found" });
-    } else {
-        res.json(Comp);
+        return res.json({ status: "not-found" });
     }
-
-    return res.json({ status: "ok" });
+    
+    return res.json(Comp);
 
 };

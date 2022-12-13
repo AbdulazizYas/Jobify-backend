@@ -1,11 +1,10 @@
 const Company = require("../models/Company");
 const Job = require("../models/Job");
-const Applicant = require("../models/Applicant");
 
 exports.create = async (req, res) => {
 
-    const registration_id = req.body.registration_id;
-    const company = await Company.findOne({where: {registration_id}}).catch((err) => res.json({status:err}));
+    const username = req.body.username;
+    const company = await Company.findOne({where: {username}}).catch((err) => res.json({status:err}));
 
     await company.createJob(req.body)
     .catch((error) => res.json({starus:error}));
@@ -38,34 +37,32 @@ exports.delete = async (req, res) => {
 
 };
 
-exports.getAlljobs = async (req, res) => {
+exports.getAllJobs = async (req, res) => {
 
     const jobs = await Job.findAll().catch((err) => res.json({status:err}));
-    res.json(jobs);
+    return res.json(jobs);
 
 };
 
-exports.getAjob = async (req, res) => {
+exports.getJob = async (req, res) => {
 
     const job_id = req.body.job_id;
     const job = await Job.findOne({where: {job_id}}).catch((err) => res.json({status:err}));
 
     if (job === null) {
-        res.json({status: "not-found"});
-      } else {
-        res.json(job);
-      }
-
-    return res.json({status: "ok"});
+        return res.json({status: "not-found"});
+    }
+    
+    return res.json(job);
 
 };
 
-exports.getAllApplicant = async (req, res) => {
+exports.getAllApplicants = async (req, res) => {
     
     const job_id = req.body.job_id;
     const job = await Job.findOne({where: {job_id}}).catch((err) => res.json({status:err}));
 
-    const applicants = await Applicant.findAll({where: {job}});
-    res.json(applicants);
+    const applicants = await job.getApplicants({where: {job}});
+    return res.json(applicants);
 
 };

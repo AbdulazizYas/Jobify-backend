@@ -89,6 +89,7 @@ const Job = sequelize.define(
         foreignKey: "companyName",
         as: "companyName"
     });
+    Job.belongsToMany(JobSeeker, { through: Applicant });
   };
   
 return Job;
