@@ -48,7 +48,7 @@ exports.getCompany = async (req, res) => {
     if (Comp === null) {
         return res.json({ status: "not-found" });
     }
-    
+
     return res.json(Comp);
 
 };
