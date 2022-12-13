@@ -1,4 +1,4 @@
-const JobSeeker = require("../models/JobSeeker");
+const {JobSeeker} = require("../models");
 
 exports.create = async (req, res) => {
 
@@ -42,8 +42,8 @@ exports.getAllSeekeres = async (req, res) => {
 
 exports.getSeeker = async (req, res) => {
 
-    const userName = req.body.userName;
-    const seeker = await JobSeeker.findOne({where: {userName}}).catch((err) => res.json({status:err}));
+    // const userName = req.body.userName;
+    const seeker = await JobSeeker.findOne({where: {userName:"xx"}}).catch((err) => res.json({status:err}));
 
     if (seeker === null) {
       return res.json({status: "not-found"});

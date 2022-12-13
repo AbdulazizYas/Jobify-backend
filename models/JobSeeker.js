@@ -3,34 +3,32 @@ const JopSeeker = sequelize.define(
   "JopSeeker",
   {
     userName: {
-        type: sequelize.STRING,
+        type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false,
         validate: {
             notNull: { msg: 'a user must have a username' },
         }
-    }
-},
-{
+    },
+
     email: {
-        type: sequelize.STRING,
+        type: DataTypes.STRING,
         primaryKey: false,
         allowNull: false,
         validate: {
             notNull: { msg: 'a user must have an email' },
         }
-    }
-},
-{
+    },
+
     password: {
-        type: sequelize.STRING,
+        type: DataTypes.STRING,
         primaryKey: false,
         allowNull: false,
         validate: {
             notNull: { msg: 'a user must have a password' },
         }
-    }
-},
+    },
+
   // {
   //   seeker_id: {
   //     type: sequelize.UUID,
@@ -41,34 +39,50 @@ const JopSeeker = sequelize.define(
   //     },
   //   }
   // },
-  {
+
     firstName: {
-      type: sequelize.STRING,
+      type: DataTypes.STRING,
       primaryKey: false,
       allowNull: false,
       validate: {
         notNull: { msg: 'seeker must have a first name' },
       }
-    }
-  },
-  {
+    },
+
     lastName: {
-      type: sequelize.STRING,
+      type: DataTypes.STRING,
       primaryKey: false,
       allowNull: false,
       validate: {
         notNull: { msg: 'seeker must have a last name' },
       }
-    }
-  },
-  {
-    birthDate: {
-      type: sequelize.DATE,
+    },
+
+    skills: {
+      type: DataTypes.STRING,
       primaryKey: false,
       allowNull: false,
       validate: {
-        notNull: { msg: 'seeker must have a birth date' },
-      }
+        notNull: { msg: 'company must have a location' },
+      },
+    },
+
+    experiences: {
+      type: DataTypes.STRING,
+      primaryKey: false,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'company must have a location' },
+      },
+    },
+
+    education: {
+      type: DataTypes.STRING,
+      primaryKey: false,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'company must have a location' },
+      },
     }
   },
   //{ timestamps: false }
@@ -79,7 +93,11 @@ JopSeeker.associate = (models) => {
   //   foreignKey: "username",
   //   as: "username"
   // });
-  JopSeeker.belongsToMany(Job, { through: Applicant });
+  // JopSeeker.belongsToMany(models.Job, { through: models.Applicant });
+  JopSeeker.hasMany(models.Applicant, {
+      foreignKey: "seekerUsername",
+      as: "applications"
+    });
 };
 
 return JopSeeker;

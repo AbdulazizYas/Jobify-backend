@@ -3,67 +3,70 @@ const Job = sequelize.define(
     "Job",
     { 
         job_id: {
-            type: sequelize.UUID,
+            type: DataTypes.UUID,
             primaryKey: true,
             allowNull: false,
             validate: {
                 notNull: { msg: 'a job must have an id' },
             }
-        } 
-    },
-    { 
+        } ,
+
         jobName: {
-            type: sequelize.STRING,
+            type: DataTypes.STRING,
             primaryKey: false,
             allowNull: false,
             validate: {
                 notNull: { msg: 'a job must have a name' },
             }
-        } 
-    },
-    { 
-        location: {
-            type: sequelize.STRING,
+        } ,
+  
+        city: {
+            type: DataTypes.STRING,
             primaryKey: false,
             allowNull: false,
             validate: {
                 notNull: { msg: 'a job must have a location' },
             }
-        } 
-    },
-    { 
+        } ,
+
         datePosted: {
-            type: sequelize.DATE,
+            type: DataTypes.DATE,
             primaryKey: false,
             allowNull: false,
             validate: {
                 notNull: { msg: 'a job must have a date posted' },
             }
-        } 
-    },
-    { 
-        locationType: {
-            type: sequelize.STRING,
+        } ,
+  
+        jobType: {
+            type: DataTypes.STRING,
             primaryKey: false,
             allowNull: false,
             validate: {
                 notNull: { msg: 'a job must have a location type' },
             }
-        } 
-    },
-    { 
+        } ,
+
         entryLevel: {
-            type: sequelize.STRING,
+            type: DataTypes.STRING,
             primaryKey: false,
             allowNull: false,
             validate: {
                 notNull: { msg: 'a job must have an entry level' },
             }
-        } 
-    },
-    { 
-        jobType: {
-            type: sequelize.STRING,
+        } ,
+   
+        jobTime: {
+            type: DataTypes.STRING,
+            primaryKey: false,
+            allowNull: false,
+            validate: {
+                notNull: { msg: 'a job must have a type' },
+            }
+        } ,
+  
+        description: {
+            type: DataTypes.STRING,
             primaryKey: false,
             allowNull: false,
             validate: {
@@ -85,11 +88,15 @@ const Job = sequelize.define(
   );
 
   Job.associate = (models) => {
-    Job.belongTo(models.companies, {
-        foreignKey: "companyName",
-        as: "companyName"
+    Job.belongsTo(models.Company, {
+        foreignKey: "companyUserName",
+        as: "company"
     });
-    Job.belongsToMany(JobSeeker, { through: Applicant });
+    // Job.belongsToMany(models.JobSeeker, { through: models.Applicant });
+    Job.hasMany(models.Applicant, {
+        foreignKey: "jobID",
+        as: "applications"
+    });
   };
   
 return Job;
