@@ -2,16 +2,46 @@ module.exports = (sequelize, DataTypes) => {
 const Administrator = sequelize.define(
   "Administrator",
   {
-    admin_id: {
-      type: sequelize.UUID,
-      primaryKey: true,
-      allowNull: false,
-      validate: {
-        notNull: { msg: 'admin must have an id' },
-       
-      },
+    userName: {
+        type: sequelize.STRING,
+        primaryKey: true,
+        allowNull: false,
+        validate: {
+            notNull: { msg: 'a user must have a username' },
+        }
     }
-  },
+},
+{
+    email: {
+        type: sequelize.STRING,
+        primaryKey: false,
+        allowNull: false,
+        validate: {
+            notNull: { msg: 'a user must have an email' },
+        }
+    }
+},
+{
+    password: {
+        type: sequelize.STRING,
+        primaryKey: false,
+        allowNull: false,
+        validate: {
+            notNull: { msg: 'a user must have a password' },
+        }
+    }
+},
+  // {
+  //   admin_id: {
+  //     type: sequelize.UUID,
+  //     primaryKey: true,
+  //     allowNull: false,
+  //     validate: {
+  //       notNull: { msg: 'admin must have an id' },
+       
+  //     },
+  //   }
+  // },
   {
     firstName: {
       type: sequelize.STRING,
@@ -35,13 +65,13 @@ const Administrator = sequelize.define(
   //{ timestamps: false }
 );
 
-Administrator.associate = (models) => {
-  Administrator.belongTo(models.User, {
-    foreignKey: "userName",
-    as: "userName"
-  });
+// Administrator.associate = (models) => {
+//   Administrator.belongTo(models.User, {
+//     foreignKey: "userName",
+//     as: "userName"
+//   });
 
-};
+// };
 
 return Administrator;
 };

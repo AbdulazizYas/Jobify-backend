@@ -2,15 +2,45 @@ module.exports = (sequelize, DataTypes) => {
 const JopSeeker = sequelize.define(
   "JopSeeker",
   {
-    seeker_id: {
-      type: sequelize.UUID,
-      primaryKey: true,
-      allowNull: false,
-      validate: {
-        notNull: { msg: 'seeker must have an id' },
-      },
+    userName: {
+        type: sequelize.STRING,
+        primaryKey: true,
+        allowNull: false,
+        validate: {
+            notNull: { msg: 'a user must have a username' },
+        }
     }
-  },
+},
+{
+    email: {
+        type: sequelize.STRING,
+        primaryKey: false,
+        allowNull: false,
+        validate: {
+            notNull: { msg: 'a user must have an email' },
+        }
+    }
+},
+{
+    password: {
+        type: sequelize.STRING,
+        primaryKey: false,
+        allowNull: false,
+        validate: {
+            notNull: { msg: 'a user must have a password' },
+        }
+    }
+},
+  // {
+  //   seeker_id: {
+  //     type: sequelize.UUID,
+  //     primaryKey: true,
+  //     allowNull: false,
+  //     validate: {
+  //       notNull: { msg: 'seeker must have an id' },
+  //     },
+  //   }
+  // },
   {
     firstName: {
       type: sequelize.STRING,
@@ -45,10 +75,10 @@ const JopSeeker = sequelize.define(
 );
 
 JopSeeker.associate = (models) => {
-  JopSeeker.belongTo(models.User, {
-    foreignKey: "username",
-    as: "username"
-  });
+  // JopSeeker.belongTo(models.User, {
+  //   foreignKey: "username",
+  //   as: "username"
+  // });
   JopSeeker.belongsToMany(Job, { through: Applicant });
 };
 

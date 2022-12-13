@@ -2,10 +2,7 @@ const administrator = require("../models/administrator");
 
 exports.create = async (req, res) => {
 
-    const admin_id = req.body.admin_id;
-    const admin = await administrator.findOne({ where: { admin_id } }).catch((err) => res.json({ status: err }));
-
-    await admin.createJob(req.body)
+    await administrator.createJob(req.body)
         .catch((error) => res.json({ starus: error }));
 
     return res.json({ status: "ok" });
@@ -13,8 +10,8 @@ exports.create = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-    const admin_id = req.body.admin_id;
-    const admin = await administrator.findOne({ where: { admin_id } }).catch((err) => res.json({ status: err }));
+    const userName = req.body.userName;
+    const admin = await administrator.findOne({ where: { userName } }).catch((err) => res.json({ status: err }));
 
     await admin.update(req.body)
         .catch((error) => res.json({ starus: error }));
@@ -23,17 +20,29 @@ exports.update = async (req, res) => {
 
 };
 
-exports.getAlladministrators = async (req, res) => {
+exports.delete = async (req, res) => {
+
+    const username = req.body.username;
+    const admin = await administrator.findOne({ where: { username } }).catch((err) => res.json({ status: err }));
+
+    await admin.destroy()
+        .catch((error) => res.json({ starus: error }));
+
+    return res.json({ status: "ok" });
+
+};
+
+exports.getAllAdministrators = async (req, res) => {
 
     const admin = await administrator.findAll().catch((err) => res.json({ status: err }));;
     return res.json(admin);
     
 };
 
-exports.getAadministrator = async (req, res) => {
+exports.getAdministrator = async (req, res) => {
 
-    const admin_id = req.body.admin_id;
-    const admin = await administrator.findOne({ where: { admin_id } }).catch((err) => res.json({ status: err }));
+    const userName = req.body.userName;
+    const admin = await administrator.findOne({ where: { userName } }).catch((err) => res.json({ status: err }));
 
     if (admin === null) {
         return res.json({ status: "not-found" });

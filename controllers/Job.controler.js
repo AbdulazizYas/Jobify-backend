@@ -3,8 +3,8 @@ const Job = require("../models/Job");
 
 exports.create = async (req, res) => {
 
-    const registration_id = req.body.registration_id;
-    const company = await Company.findOne({where: {registration_id}}).catch((err) => res.json({status:err}));
+    const username = req.body.username;
+    const company = await Company.findOne({where: {username}}).catch((err) => res.json({status:err}));
 
     await company.createJob(req.body)
     .catch((error) => res.json({starus:error}));
@@ -44,7 +44,7 @@ exports.getAlljobs = async (req, res) => {
 
 };
 
-exports.getAjob = async (req, res) => {
+exports.getJob = async (req, res) => {
 
     const job_id = req.body.job_id;
     const job = await Job.findOne({where: {job_id}}).catch((err) => res.json({status:err}));
