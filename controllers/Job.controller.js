@@ -1,5 +1,5 @@
-const Company = require("../models/Company");
-const Job = require("../models/Job");
+const {Company} = require("../models");
+const {Job} = require("../models");
 
 exports.create = async (req, res) => {
 
@@ -39,17 +39,7 @@ exports.delete = async (req, res) => {
 
 exports.getAllJobs = async (req, res) => {
 
-    const jobs = await Job.findAll(
-        {
-            where: {
-                location: req.body.location,
-                datePosted: req.body.datePosted,
-                Type: req.body.Type,
-                entryLevel: req.body.entryLevel,
-                jobType: req.body.jobType
-            }
-        }
-    ).catch((err) => res.json({status:err}));
+    const jobs = await Job.findAll().catch((err) => res.json({status:err}));
     return res.json(jobs);
 
 };

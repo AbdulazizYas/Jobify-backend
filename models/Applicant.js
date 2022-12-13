@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     
       Applicant.associate = (models) => {
         Applicant.belongsTo(models.Job);
-        Applicant.belongsTo(models.JopSeeker);
+        Applicant.belongsTo(models.Seeker);
         // Job.belongsToMany(JobSeeker, { through: Applicant });
         // JobSeeker.belongsToMany(Job, { through: Applicant });
       };

@@ -11,7 +11,7 @@ const db = require("./models");
 // global.sequelize = sequelize;
 
 const jobRoutes = require("./routes/Job.router");
-const seekerRoutes = require("./routes/Jobseeker.router");
+const seekerRoutes = require("./routes/JobSeeker.router");
 const companyRoutes = require("./routes/Company.router");
 
 var port = 3000;

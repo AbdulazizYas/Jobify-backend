@@ -46,27 +46,6 @@ const Company = sequelize.define(
       notNull: { msg: 'seeker must have a last name' },
     }
   },
-
-  // {
-  //   registration_id: {
-  //     type: sequelize.UUID,
-  //     primaryKey: true,
-  //     allowNull: false,
-  //     validate: {
-  //       notNull: { msg: 'company must have an id' },
-  //     },
-  //   }
-  // },
-  // {
-  //   companyName: {
-  //     type: sequelize.STRING,
-  //     primaryKey: false,
-  //     allowNull: false,
-  //     validate: {
-  //       notNull: { msg: 'company must have a  name' },
-  //     },
-  //   }
-  // },
   
     country: {
       type: DataTypes.STRING,
@@ -95,13 +74,9 @@ const Company = sequelize.define(
       },
     }
   },
-  //{ timestamps: false }
+
 );
 Company.associate = (models) => {
-  // Company.belongTo(models.User, {
-  //   foreignKey: "userName",
-  //   as: "userName"
-  // });
   Company.hasMany(models.Job, {
     foreignKey: "companyUserName",
     as: "jobs"

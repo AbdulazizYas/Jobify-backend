@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-var seekerCon = require("../controllers/Jobseeker.controller");
+var seekerCon = require("../controllers/Seeker.controller");
 
 router.get("/", seekerCon.getAllSeekeres);
 
